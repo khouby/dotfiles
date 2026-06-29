@@ -1,0 +1,58 @@
+# ~/.config/ghostty/config
+
+# Window
+window-decoration = true
+window-padding-x = 12 
+window-padding-y = 2
+window-save-state = always
+window-inherit-working-directory = true
+window-width = 640
+window-height = 480
+window-position-x = 1400
+window-position-y = 480
+
+# Shell integrations
+shell-integration = zsh
+quit-after-last-window-closed = true
+
+# MacOS settings
+macos-titlebar-style = hidden
+macos-option-as-alt = true
+
+# Transparency & blur
+background-opacity = 1
+
+# Opacity of split windows
+unfocused-split-opacity = 0.97 
+
+# Theme
+theme = Catppuccin Macchiato
+
+# Font
+font-family = "Maple Mono"
+font-style = Regular
+font-style-bold = Bold
+font-style-italic = Italic
+font-style-bold-italic = Bold Italic
+font-size = 17
+
+# Cursor
+cursor-style = underline
+
+# Clipboard settings
+clipboard-read = allow
+clipboard-write = allow
+
+# Keybindings
+keybind = cmd+=new_split:right
+keybind = cmd+shift+t=new_tab
+keybind = cmd+w=close_surface
+keybind = cmd+shift+w=close_tab
+keybind = alt+left=text:\x1bb
+keybind = alt+right=text:\x1bf
+
+# Terminal
+term = xterm-256color
+
+# Always show ghostty as the title
+title = ghostty 
