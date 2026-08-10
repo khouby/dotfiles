@@ -1,14 +1,93 @@
+# herdr configuration — ~/.config/herdr/config.toml
+
 onboarding = false
+
 [theme]
 name = "catppuccin"
+# Ghostty follows the system appearance; let herdr follow it too.
+auto_switch = true
+dark_name = "catppuccin"
+light_name = "catppuccin-latte"
+
+[update]
+channel = "stable"
+
+[terminal]
+# New tabs/panes inherit the source pane's cwd, so a project space stays in-project.
+new_cwd = "follow"
+
+[worktrees]
+directory = "~/.herdr/worktrees"
+
+[keys]
+prefix = "cmd+p"
+
+# --- direct jumps (unbound in the default config) ---
+switch_workspace = "prefix+shift+1..9"   # jump straight to a space
+focus_agent = "prefix+alt+1..9"          # jump straight to an agent row
+
+# --- walk the attention queue (pairs with agent_panel_sort = "priority") ---
+next_agent = "prefix+a"
+previous_agent = "prefix+shift+a"
+
+# --- worktrees ---
+open_worktree = "prefix+t"               # new_worktree is already prefix+shift+g
+
+# Command palette in a native popup rather than the plugin's overlay pane.
+# The wrapper resolves the plugin root at runtime so updates don't break the path.
+[[keys.command]]
+key = "prefix+p"
+type = "popup"
+command = "bash /Users/jakubstefanisin/.config/herdr/palette-popup.sh"
+width = "70%"
+height = "50%"
+description = "Command palette"
+
+[[keys.command]]
+key = "prefix+alt+g"
+type = "popup"
+command = "lazygit"
+width = "90%"
+height = "90%"
+
+[[keys.command]]
+key = "prefix+alt+d"
+type = "popup"
+command = "lazydocker"
+width = "90%"
+height = "90%"
 
 [ui]
-agent_panel_scope = "all"
-
 show_agent_labels_on_pane_borders = false
 agent_panel_sort = "priority"
+# Keep the tab row a fixed fixture — no layout shift when a space drops to one tab.
+hide_tab_bar_when_single_tab = false
+# Name tabs at creation; generated names are useless once a space has five of them.
+prompt_new_tab_name = true
+
+[ui.sidebar.spaces]
+rows = [["state_icon", "workspace"], ["branch", "git_status"]]
+
+[ui.sidebar.agents]
+rows = [["state_icon", "workspace", "tab"], ["agent"]]
+
+[ui.sidebar.agents.rows_by_agent]
+# Surface what Claude is actually doing right now, per row.
+claude = [["state_icon", "workspace", "tab"], ["terminal_title_stripped"], ["agent"]]
+
 [ui.toast]
 delivery = "terminal"
 
 [ui.sound]
-enabled = false
+enabled = true
+
+[session]
+resume_agents_on_restore = true
+
+[experimental]
+# Keep recent pane scrollback across full server restarts.
+pane_history = true
+
+[advanced]
+# Agents emit a lot; the 10 MB default truncates long runs.
+scrollback_limit_bytes = 25000000
